@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import TextField from './TextField.vue'
 import VisibilityOnIcon from '../../assets/icons/visibility_on.svg'
+import VisibilityOffIcon from '../../assets/icons/visibility_off.svg'
+import { computed, ref } from 'vue'
+
+const showPassword = ref(false)
+const fieldType = computed(() => (showPassword.value ? 'text' : 'password'))
+
+function togglePassword() {
+  showPassword.value = !showPassword.value
+}
 </script>
 <template>
   <div class="password-container">
-    <TextField type="password" placeholder="Password" />
-    <span id="togglePassword" class="eye-icon">
-      <VisibilityOnIcon />
+    <TextField :type="fieldType" placeholder="Password" />
+    <span class="eye-icon" @click="togglePassword">
+      <component :is="showPassword ? VisibilityOnIcon : VisibilityOffIcon" />
     </span>
   </div>
 </template>
@@ -24,9 +33,6 @@ import VisibilityOnIcon from '../../assets/icons/visibility_on.svg'
   transform: translateY(-50%);
   cursor: pointer;
   color: var(--black700);
-}
-
-#togglePassword {
   width: 1rem;
   height: 1rem;
 }
