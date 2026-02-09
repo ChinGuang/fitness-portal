@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ToggleSwitch from '../components/form/ToggleSwitch.vue'
+// import ToggleSwitch from '../components/form/ToggleSwitch.vue'
 import TextField from '../components/form/TextField.vue'
 import PasswordField from '../components/form/PasswordField.vue'
 import Button from '../components/form/ButtonComponent.vue'
