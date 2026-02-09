@@ -11,10 +11,10 @@ import Button from '../components/form/ButtonComponent.vue'
       <div class="login-form">
         <TextField type="text" placeholder="Username" />
         <PasswordField />
-        <div class="remember-me-container">
+        <!-- <div class="remember-me-container">
           <ToggleSwitch />
           <label>Remember me</label>
-        </div>
+        </div> -->
       </div>
       <Button>Sign In</Button>
     </div>
