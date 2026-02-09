@@ -1,25 +1,22 @@
 <script setup lang="ts">
-import VisibilityOnIcon from '../assets/icons/visibility_on.svg'
-import ToggleSwitch from '../components/ToggleSwitch.vue'
+import ToggleSwitch from '../components/form/ToggleSwitch.vue'
+import TextField from '../components/form/TextField.vue'
+import PasswordField from '../components/form/PasswordField.vue'
+import Button from '../components/form/ButtonComponent.vue'
 </script>
 <template>
   <div class="container">
     <div class="login-container">
       <h1>Nice to see you again</h1>
       <div class="login-form">
-        <input class="input-field" type="text" placeholder="Username" />
-        <div class="password-container">
-          <input class="input-field" type="password" placeholder="Password" />
-          <span id="togglePassword" class="eye-icon">
-            <VisibilityOnIcon />
-          </span>
-        </div>
+        <TextField type="text" placeholder="Username" />
+        <PasswordField />
         <div class="remember-me-container">
           <ToggleSwitch />
           <label>Remember me</label>
         </div>
       </div>
-      <button>Sign In</button>
+      <Button>Sign In</Button>
     </div>
     <div class="logo-container">
       <image
@@ -43,18 +40,6 @@ h1 {
   font-weight: 600;
 }
 
-input {
-  font-family: roboto, sans-serif;
-  font-size: 15px;
-  line-height: 20px;
-}
-
-input::placeholder {
-  font-family: roboto, sans-serif;
-  font-size: 15px;
-  color: var(--black500);
-}
-
 .login-container {
   display: flex;
   flex-direction: column;
@@ -62,15 +47,6 @@ input::placeholder {
   gap: 1.5rem;
   border-bottom: 0.5px solid var(--black100);
   padding-bottom: 1.5rem;
-}
-
-.input-field {
-  width: 100%;
-  box-sizing: border-box;
-  background-color: var(--black50);
-  padding: 0.5rem 0.5rem 0.5rem 1rem;
-  border-radius: var(--radius-medium);
-  border: none;
 }
 
 .login-form {
@@ -90,48 +66,12 @@ input::placeholder {
   justify-content: space-between;
 }
 
-.password-container {
-  width: 100%;
-  position: relative;
-}
-
-.eye-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: var(--black700);
-}
-
-#togglePassword {
-  width: 1rem;
-  height: 1rem;
-}
-
 .remember-me-container {
   display: flex;
   gap: 0.5rem;
   align-items: center;
   font-size: 12px;
   font-family: 'SF Pro Display', sans-serif;
-}
-
-button {
-  color: white;
-  background-color: var(--system-blue);
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-medium);
-  border: none;
-  font-family: Roboto, sans-serif;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 20px;
-  letter-spacing: 0.01875em;
-}
-
-button:hover {
-  background-color: var(--system-blue-hover);
 }
 
 .logo-container {
