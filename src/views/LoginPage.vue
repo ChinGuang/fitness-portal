@@ -92,14 +92,6 @@ h1 {
   padding: 0;
 }
 
-.container {
-  height: 100dvh;
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .remember-me-container {
   display: flex;
   gap: 0.5rem;
