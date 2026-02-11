@@ -2,8 +2,16 @@
 import Button from '@/components/form/ButtonComponent.vue'
 import { useAuthStore } from '@/stores/auth'
 import Router from '@/router'
+import { useMemberStore } from '@/stores/member'
+import { onBeforeMount } from 'vue'
+import { GenderUtils } from 'fitness-model-package'
 
 const authStore = useAuthStore()
+const memberStore = useMemberStore()
+
+onBeforeMount(async () => {
+  await memberStore.fetchMembers()
+})
 
 async function handleLogout() {
   const logoutResult = await authStore.logout()
@@ -16,8 +24,8 @@ async function handleLogout() {
 function handleExport() {
   // Implement export functionality here
 }
-function handleDelete() {
-  // Implement delete functionality here
+async function handleDelete(id: number) {
+  await memberStore.deleteMember(id)
 }
 function handleEdit() {
   // Implement edit functionality here
@@ -46,34 +54,14 @@ function handleEdit() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>1234567890</td>
-              <td>Male</td>
-              <td>
+            <tr v-for="member in memberStore.displayMemberList" :key="member.id">
+              <td>{{ member.id }}</td>
+              <td>{{ member.profile.lastName }} {{ member.profile.firstName }}</td>
+              <td>{{ member.phone }}</td>
+              <td>{{ GenderUtils.toString(member.profile.gender) }}</td>
+              <td class="action-buttons">
                 <Button @click="handleEdit" label="Edit" />
-                <Button @click="handleDelete" label="Delete" />
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jane Doe</td>
-              <td>0987654321</td>
-              <td>Female</td>
-              <td>
-                <Button @click="handleEdit" label="Edit" />
-                <Button @click="handleDelete" label="Delete" />
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Bob Smith</td>
-              <td>1122334455</td>
-              <td>Male</td>
-              <td>
-                <Button @click="handleEdit" label="Edit" />
-                <Button @click="handleDelete" label="Delete" />
+                <Button @click="() => handleDelete(member.id)" label="Delete" />
               </td>
             </tr>
           </tbody>
@@ -157,6 +145,12 @@ header {
     Geneva,
     Verdana,
     sans-serif;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 table {
