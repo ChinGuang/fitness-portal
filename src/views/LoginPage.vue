@@ -1,22 +1,56 @@
 <script setup lang="ts">
-// import ToggleSwitch from '../components/form/ToggleSwitch.vue'
 import TextField from '../components/form/TextField.vue'
 import PasswordField from '../components/form/PasswordField.vue'
 import Button from '../components/form/ButtonComponent.vue'
+import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import Router, { RoutePath } from '../router'
+
+const username = ref<string>('')
+const password = ref<string>('')
+
+const AuthStore = useAuthStore()
+
+function updateUsername(value: string) {
+  console.log('Updating username:', value)
+  username.value = value
+}
+
+function updatePassword(value: string) {
+  password.value = value
+}
+
+async function handleSignIn() {
+  const loginResult = await AuthStore.login({
+    username: username.value,
+    password: password.value,
+  })
+  console.log(loginResult)
+  if (loginResult.success) {
+    await Router.push(RoutePath.Members)
+  } else {
+    alert(loginResult.error ?? 'Unexpected error')
+  }
+}
 </script>
 <template>
   <div class="container">
     <div class="login-container">
       <h1>Nice to see you again</h1>
       <div class="login-form">
-        <TextField type="text" placeholder="Username" />
-        <PasswordField />
+        <TextField
+          :value="username"
+          @update:value="updateUsername"
+          type="text"
+          placeholder="Username"
+        />
+        <PasswordField :value="password" @update:value="updatePassword" />
         <!-- <div class="remember-me-container">
           <ToggleSwitch />
           <label>Remember me</label>
         </div> -->
       </div>
-      <Button>Sign In</Button>
+      <Button @click="handleSignIn" label="Sign In" />
     </div>
     <div class="logo-container">
       <image

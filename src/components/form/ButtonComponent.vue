@@ -1,6 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  label: string
+}
+
+defineProps<Props>()
+
+const emit = defineEmits(['click'])
+const onClick = () => {
+  emit('click')
+}
+</script>
 <template>
-  <button>Sign In</button>
+  <button @click="onClick">{{ label }}</button>
 </template>
 <style scoped>
 button {

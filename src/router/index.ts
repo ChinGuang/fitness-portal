@@ -1,10 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+export enum RoutePath {
+  Login = '/',
+  Members = '/members',
+}
+
 const routes = [
   {
-    path: '/',
+    path: RoutePath.Login,
     name: 'Login',
     component: () => import('../views/LoginPage.vue'),
+  },
+  {
+    path: RoutePath.Members,
+    name: 'Members',
+    component: () => import('../views/members/ViewListPage.vue'),
   },
 ];
 
@@ -13,4 +23,4 @@ const router = createRouter({
   routes: routes,
 })
 
-export default router
+export default router;

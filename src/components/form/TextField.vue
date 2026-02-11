@@ -4,13 +4,28 @@ import type { InputTypeHTMLAttribute } from 'vue'
 interface Props {
   type: InputTypeHTMLAttribute
   placeholder: string
+  value: string
+}
+
+const emit = defineEmits<{
+  (e: 'update:value', value: string): void
+}>()
+
+function handleInput(event: Event) {
+  emit('update:value', (event.target as HTMLInputElement)?.value)
 }
 
 defineProps<Props>()
 </script>
 
 <template>
-  <input class="input-field" :type="type" :placeholder="placeholder" />
+  <input
+    class="input-field"
+    :value="value"
+    :type="type"
+    :placeholder="placeholder"
+    @input="handleInput"
+  />
 </template>
 <style scoped>
 input {
