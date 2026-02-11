@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { API } from '.';
 import { type LoginDto } from 'fitness-model-package';
 
@@ -6,23 +7,32 @@ async function login(payload: LoginDto): Promise<{
   error?: string;
 }> {
   try {
-    const response = await API.post('/auth/login', payload);
-    if (response.status === 200) {
-      return { success: true };
-    }
-    return { success: false, error: 'Invalid credentials' };
+    await API.post('/auth/login', payload);
+    return { success: true };
   } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 401) {
+        return { success: false, error: 'Invalid credentials' };
+      }
+    }
     console.error(error);
     return { success: false, error: 'Network error' };
   }
 }
 
 async function authenticate(): Promise<boolean> {
-  const response = await API.post('/auth/authenticate');
-  if (response.status === 200) {
+  try {
+    await API.post('/auth/authenticate');
     return true;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 401) {
+        return false;
+      }
+    }
+    console.error(error);
+    return false;
   }
-  return false;
 }
 
 async function logout(): Promise<boolean> {
