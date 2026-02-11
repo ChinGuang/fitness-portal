@@ -1,0 +1,15 @@
+:root {
+  --black50: #f2f2f2;
+  --black100: #e5e5e5;
+  --black500: #808080;
+  --black700: #4d4d4d;
+  --radius-medium: 6px;
+  --system-blue: #007aff;
+  --system-blue-hover: #0056b3;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
