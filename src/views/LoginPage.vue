@@ -10,16 +10,6 @@ const username = ref<string>('')
 const password = ref<string>('')
 
 const AuthStore = useAuthStore()
-
-function updateUsername(value: string) {
-  console.log('Updating username:', value)
-  username.value = value
-}
-
-function updatePassword(value: string) {
-  password.value = value
-}
-
 async function handleSignIn() {
   const loginResult = await AuthStore.login({
     username: username.value,
@@ -38,13 +28,8 @@ async function handleSignIn() {
     <div class="login-container">
       <h1>Nice to see you again</h1>
       <div class="login-form">
-        <TextField
-          :value="username"
-          @update:value="updateUsername"
-          type="text"
-          placeholder="Username"
-        />
-        <PasswordField :value="password" @update:value="updatePassword" />
+        <TextField v-model="username" type="text" placeholder="Username" />
+        <PasswordField v-model="password" />
         <!-- <div class="remember-me-container">
           <ToggleSwitch />
           <label>Remember me</label>

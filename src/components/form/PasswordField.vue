@@ -4,36 +4,18 @@ import VisibilityOnIcon from '../../assets/icons/visibility_on.svg'
 import VisibilityOffIcon from '../../assets/icons/visibility_off.svg'
 import { computed, ref } from 'vue'
 
-interface Props {
-  value: string
-}
-
-defineProps<Props>()
+const model = defineModel<string>()
 
 const showPassword = ref(false)
 const fieldType = computed(() => (showPassword.value ? 'text' : 'password'))
 
-const emits = defineEmits<{
-  (e: 'update:value', value: string): void
-}>()
-
 function togglePassword() {
   showPassword.value = !showPassword.value
-}
-
-function updatePassword(value: string) {
-  emits('update:value', value)
 }
 </script>
 <template>
   <div class="password-container">
-    <TextField
-      class="password-input"
-      :value="value"
-      :type="fieldType"
-      placeholder="Password"
-      @update:value="updatePassword"
-    />
+    <TextField class="password-input" v-model="model" :type="fieldType" placeholder="Password" />
     <span class="eye-icon" @click="togglePassword">
       <component :is="showPassword ? VisibilityOnIcon : VisibilityOffIcon" />
     </span>

@@ -18,6 +18,15 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function authenticate(): Promise<boolean> {
+    try {
+      return await AuthAPI.authenticate();
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
   async function logout(): Promise<{
     success: boolean;
     error?: string;
@@ -33,6 +42,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     login,
+    authenticate,
     logout
   };
 });

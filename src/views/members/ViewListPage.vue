@@ -31,7 +31,7 @@ function handleEdit(id: number) {
         <span class="subtitle">Manage and view all registered members</span>
       </div>
       <div class="showing-group">
-        <span class="showing-text">Showing 3 of 3 members</span>
+        <span class="showing-text">Showing {{ memberStore.displayMemberList.length }} members</span>
         <div class="table-container">
           <table>
             <thead>

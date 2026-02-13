@@ -6,7 +6,7 @@ import { computed, onBeforeMount, ref, toRaw } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ListTile from '@/components/ListTile.vue'
 import TextField from '@/components/form/TextField.vue'
-import ChoiceGroup from '@/components/form/ChoiceGroup.vue'
+import SelectionBox from '@/components/form/SelectionBox.vue'
 import Button from '@/components/form/ButtonComponent.vue'
 
 const route = useRoute()
@@ -63,32 +63,29 @@ async function cancel() {
         <ListTile label="First Name">
           <TextField
             type="text"
-            :value="member.profile.firstName"
+            v-model="member.profile.firstName"
             placeholder="First Name"
-            @update:value="member.profile.firstName = $event"
             textAlignment="right"
           />
         </ListTile>
         <ListTile label="Last Name">
           <TextField
             type="text"
-            :value="member.profile.lastName"
+            v-model="member.profile.lastName"
             placeholder="Last Name"
-            @update:value="member.profile.lastName = $event"
             textAlignment="right"
           />
         </ListTile>
         <ListTile label="Mobile Number">
           <TextField
             type="text"
-            :value="member.phone"
+            v-model="member.phone"
             placeholder="Mobile Number"
-            @update:value="member.phone = $event"
             textAlignment="right"
           />
         </ListTile>
         <ListTile label="Gender">
-          <ChoiceGroup :options="genderMap" v-model="member.profile.gender" />
+          <SelectionBox :options="genderMap" v-model="member.profile.gender" />
         </ListTile>
       </div>
       <div v-else-if="isLoading">

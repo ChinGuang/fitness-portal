@@ -22,8 +22,8 @@ async function login(payload: LoginDto): Promise<{
 
 async function authenticate(): Promise<boolean> {
   try {
-    await API.post('/auth/authenticate');
-    return true;
+    const response = await API.post('/auth/authenticate');
+    return response.status === 200;
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response?.status === 401) {
