@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "axios": "^1.13.5",
-    "fitness-model-package": "^1.0.1",
+    "fitness-model-package": "1.0.3",
     "pinia": "^3.0.4",
     "vue": "^3.5.27",
     "vue-router": "^5.0.1"

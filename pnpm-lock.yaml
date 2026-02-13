@@ -12,8 +12,8 @@ importers:
         specifier: ^1.13.5
         version: 1.13.5
       fitness-model-package:
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: 1.0.3
+        version: 1.0.3
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -1177,8 +1177,8 @@ packages:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
 
-  fitness-model-package@1.0.1:
-    resolution: {integrity: sha512-hQkMpddV+9juB0zZr9z7iqzLAfWfNIel3hAxqW+U90vvs/8w6ln+579XUNPJWtwAo6kdlRWQjfhpqmG5u+kEdA==}
+  fitness-model-package@1.0.3:
+    resolution: {integrity: sha512-yXMCjvhIR9XyDCOfB4Pz9A1rYN+ebNnsHoIyl3f1BhLOPJ4GMHl7AtpNCkm4hqYkE9gR3eGNG0zmlvxo0Xu20w==}
 
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
@@ -3000,7 +3000,7 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
-  fitness-model-package@1.0.1:
+  fitness-model-package@1.0.3:
     dependencies:
       zod: 4.3.6
 

@@ -4,24 +4,24 @@ import type { InputTypeHTMLAttribute } from 'vue'
 interface Props {
   type: InputTypeHTMLAttribute
   placeholder: string
-  value: string
+  textAlignment?: 'left' | 'right'
 }
 
-const emit = defineEmits<{
-  (e: 'update:value', value: string): void
-}>()
+const model = defineModel<string>()
 
 function handleInput(event: Event) {
-  emit('update:value', (event.target as HTMLInputElement)?.value)
+  model.value = (event.target as HTMLInputElement)?.value
 }
 
-defineProps<Props>()
+withDefaults(defineProps<Props>(), {
+  textAlignment: 'left',
+})
 </script>
 
 <template>
   <input
     class="input-field"
-    :value="value"
+    v-model="model"
     :type="type"
     :placeholder="placeholder"
     @input="handleInput"
@@ -41,11 +41,11 @@ input::placeholder {
 }
 
 .input-field {
-  width: 100%;
   box-sizing: border-box;
   background-color: var(--black50);
   padding: 0.5rem 0.5rem 0.5rem 1rem;
   border-radius: var(--radius-medium);
   border: none;
+  text-align: v-bind(textAlignment);
 }
 </style>
