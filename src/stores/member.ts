@@ -7,6 +7,7 @@ export const useMemberStore = defineStore('member', () => {
   const displayMemberList = ref<Member[]>([]);
   const currentPage = ref<number>(1);
   const currentSize = ref<number>(20);
+  const displayMember = ref<Member | null>(null);
   async function fetchMembers(): Promise<void> {
     const result = await MemberApi.getMembers({
       limit: currentSize.value,
@@ -14,6 +15,13 @@ export const useMemberStore = defineStore('member', () => {
     });
     if (result) {
       setMemberList(result);
+    }
+  }
+
+  async function fetchMember(id: number): Promise<void> {
+    const result = await MemberApi.getMember(id);
+    if (result) {
+      displayMember.value = result;
     }
   }
 
@@ -34,6 +42,8 @@ export const useMemberStore = defineStore('member', () => {
 
   return {
     displayMemberList,
+    displayMember,
+    fetchMember,
     fetchMembers,
     deleteMember,
     updateMember,

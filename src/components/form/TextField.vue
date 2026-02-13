@@ -5,6 +5,7 @@ interface Props {
   type: InputTypeHTMLAttribute
   placeholder: string
   value: string
+  textAlignment?: 'left' | 'right'
 }
 
 const emit = defineEmits<{
@@ -15,7 +16,9 @@ function handleInput(event: Event) {
   emit('update:value', (event.target as HTMLInputElement)?.value)
 }
 
-defineProps<Props>()
+withDefaults(defineProps<Props>(), {
+  textAlignment: 'left',
+})
 </script>
 
 <template>
@@ -41,11 +44,11 @@ input::placeholder {
 }
 
 .input-field {
-  width: 100%;
   box-sizing: border-box;
   background-color: var(--black50);
   padding: 0.5rem 0.5rem 0.5rem 1rem;
   border-radius: var(--radius-medium);
   border: none;
+  text-align: v-bind(textAlignment);
 }
 </style>

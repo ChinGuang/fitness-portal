@@ -9,7 +9,8 @@ export enum RoutePath {
 
 export enum RouteName {
   Login = 'Login',
-  Members = 'Members',
+  ViewMembers = 'ViewMembers',
+  UpdateMember = 'UpdateMember',
 }
 
 const routes = [
@@ -20,9 +21,14 @@ const routes = [
   },
   {
     path: RoutePath.Members,
-    name: RouteName.Members,
+    name: RouteName.ViewMembers,
     component: () => import('../views/members/ViewListPage.vue'),
   },
+  {
+    path: RoutePath.Members + '/:memberId',
+    name: RouteName.UpdateMember,
+    component: () => import('../views/members/UpdatePage.vue'),
+  }
 ];
 
 const router = createRouter({
@@ -46,7 +52,7 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     if (result)
-      next({ name: RouteName.Members });
+      next({ name: RouteName.ViewMembers });
     else
       next();
   }

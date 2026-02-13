@@ -8,6 +8,8 @@
   --radius-medium: 6px;
   --system-blue: #007aff;
   --system-blue-hover: #0056b3;
+  --system-warning: #ff9900;
+  --system-warning-hover: #ff7f00;
 }
 
 html,

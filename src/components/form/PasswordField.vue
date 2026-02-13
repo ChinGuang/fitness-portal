@@ -28,6 +28,7 @@ function updatePassword(value: string) {
 <template>
   <div class="password-container">
     <TextField
+      class="password-input"
       :value="value"
       :type="fieldType"
       placeholder="Password"
@@ -41,8 +42,13 @@ function updatePassword(value: string) {
 
 <style scoped>
 .password-container {
-  width: 100%;
   position: relative;
+  display: flex;
+  align-self: stretch;
+}
+
+.password-input {
+  flex: 1;
 }
 
 .eye-icon {

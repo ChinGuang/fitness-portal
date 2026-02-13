@@ -86,10 +86,10 @@ h1 {
 .login-form {
   display: flex;
   flex-direction: column;
-  align-items: start;
   justify-content: center;
   gap: 0.75rem;
   padding: 0;
+  align-self: stretch;
 }
 
 .remember-me-container {

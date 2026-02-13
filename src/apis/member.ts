@@ -1,6 +1,16 @@
 import type { Member, ReadMembersDto, UpdateMemberDto } from "fitness-model-package";
 import { API } from ".";
 
+async function getMember(id: number): Promise<Member | null> {
+  try {
+    const response = await API.get<Member>(`/members/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 async function getMembers(payload: ReadMembersDto): Promise<Member[] | null> {
   try {
     const response = await API.get<Member[]>('/members', {
@@ -34,6 +44,7 @@ async function deleteMember(id: number) {
 }
 
 export const MemberApi = {
+  getMember,
   getMembers,
   deleteMember,
   editMember,

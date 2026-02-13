@@ -1,41 +1,30 @@
 <script setup lang="ts">
 import Button from '@/components/form/ButtonComponent.vue'
-import { useAuthStore } from '@/stores/auth'
-import Router from '@/router'
 import { useMemberStore } from '@/stores/member'
 import { onBeforeMount } from 'vue'
 import { GenderUtils } from 'fitness-model-package'
+import TopBar from '@/components/TopBar.vue'
+import Router, { RouteName } from '@/router'
 
-const authStore = useAuthStore()
 const memberStore = useMemberStore()
 
 onBeforeMount(async () => {
   await memberStore.fetchMembers()
 })
 
-async function handleLogout() {
-  const logoutResult = await authStore.logout()
-  if (logoutResult.success) {
-    Router.push('/')
-  } else {
-    alert('Logout failed')
-  }
-}
 function handleExport() {
   // Implement export functionality here
 }
 async function handleDelete(id: number) {
   await memberStore.deleteMember(id)
 }
-function handleEdit() {
-  // Implement edit functionality here
+function handleEdit(id: number) {
+  Router.push({ name: RouteName.UpdateMember, params: { memberId: id } })
 }
 </script>
 <template>
   <div class="container">
-    <header>
-      <Button @click="handleLogout" label="Log Out" />
-    </header>
+    <TopBar title="View Members" />
     <div class="content">
       <div class="title-group">
         <span class="title">View All Members</span>
@@ -43,29 +32,31 @@ function handleEdit() {
       </div>
       <div class="showing-group">
         <span class="showing-text">Showing 3 of 3 members</span>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Gender</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="member in memberStore.displayMemberList" :key="member.id">
-              <td>{{ member.id }}</td>
-              <td>{{ member.profile.lastName }} {{ member.profile.firstName }}</td>
-              <td>{{ member.phone }}</td>
-              <td>{{ GenderUtils.toString(member.profile.gender) }}</td>
-              <td class="action-buttons">
-                <Button @click="handleEdit" label="Edit" />
-                <Button @click="() => handleDelete(member.id)" label="Delete" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="member in memberStore.displayMemberList" :key="member.id">
+                <td>{{ member.id }}</td>
+                <td>{{ member.profile.lastName }} {{ member.profile.firstName }}</td>
+                <td>{{ member.phone }}</td>
+                <td>{{ GenderUtils.toString(member.profile.gender) }}</td>
+                <td class="action-buttons">
+                  <Button @click="() => handleEdit(member.id)" label="Edit" />
+                  <Button @click="() => handleDelete(member.id)" label="Delete" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -87,7 +78,7 @@ function handleEdit() {
 }
 
 .title {
-  font-size: 24px;
+  font-size: 1.25rem;
   font-weight: bold;
   line-height: calc(2 / 1.5);
   font-family:
@@ -123,11 +114,6 @@ function handleEdit() {
     sans-serif;
 }
 
-header {
-  padding: 1rem;
-  border-bottom: 0.5px solid var(--black100);
-}
-
 .showing-group {
   width: 100%;
   display: flex;
@@ -154,7 +140,7 @@ header {
 }
 
 table {
-  width: 100%;
+  min-width: 100%;
   border: 1px solid var(--black100);
   border-radius: var(--radius-medium);
   border-collapse: collapse;
@@ -167,5 +153,10 @@ tr {
 td {
   text-align: center;
   padding: 0.5rem;
+}
+
+.table-container {
+  overflow-x: auto;
+  width: 100%;
 }
 </style>
